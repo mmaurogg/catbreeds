@@ -18,7 +18,21 @@ class CatbreedsListProvider extends ChangeNotifier {
 
   Future<void> getCatbreeds() async {
     var list = await _catbreedRepository.getCatbreeds();
+    if (list != null) catbreedList = list;
+    _catbreedListSubject.value = catbreedList;
+    notifyListeners();
+  }
+
+  Future<void> getNextCatbreeds(int page) async {
+    var list = await _catbreedRepository.getCatbreeds();
     if (list != null) catbreedList.addAll(list);
+    _catbreedListSubject.value = catbreedList;
+    notifyListeners();
+  }
+
+  Future<void> searchCatbreeds(String text) async {
+    var list = await _catbreedRepository.searchCatbreeds(text);
+    if (list != null) catbreedList = list;
     _catbreedListSubject.value = catbreedList;
     notifyListeners();
   }

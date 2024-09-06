@@ -4,14 +4,56 @@ import 'dart:convert' as convert;
 
 class CatbreedApiSource {
   final String _baseUrl = 'api.thecatapi.com';
-  final String _endPoint = '/v1/breeds';
+
   final String _apiKey =
       'live_99Qe4Ppj34NdplyLW67xCV7Ds0oSLKGgcWWYnSzMJY9C0QOu0HUR4azYxWkyW2nr';
 
   CatbreedApiSource();
 
   Future<List<CatbreedModel>?> getCatBreeds() async {
+    const String _endPoint = '/v1/breeds';
     final url = Uri.https(_baseUrl, _endPoint, {"limit": "10", "page": "0"});
+    var response = await http.get(url, headers: {'x-api-key': _apiKey});
+
+    if (response.statusCode == 200) {
+      final jsonResponse = convert.jsonDecode(response.body);
+
+      final catbreedsResponse = (jsonResponse as List).map(
+        (e) {
+          return CatbreedModel.fromJson(e);
+        },
+      ).toList();
+
+      return catbreedsResponse;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  Future<List<CatbreedModel>?> getNextCatBreeds(int page) async {
+    const String _endPoint = '/v1/breeds';
+    final url = Uri.https(
+        _baseUrl, _endPoint, {"limit": "10", "page": page.toString()});
+    var response = await http.get(url, headers: {'x-api-key': _apiKey});
+
+    if (response.statusCode == 200) {
+      final jsonResponse = convert.jsonDecode(response.body);
+
+      final catbreedsResponse = (jsonResponse as List).map(
+        (e) {
+          return CatbreedModel.fromJson(e);
+        },
+      ).toList();
+
+      return catbreedsResponse;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  Future<List<CatbreedModel>?> searchCatBreeds(String text) async {
+    const String _endPoint = '/v1/breeds/search';
+    final url = Uri.https(_baseUrl, _endPoint, {"q": text});
     var response = await http.get(url, headers: {'x-api-key': _apiKey});
 
     if (response.statusCode == 200) {
