@@ -15,6 +15,8 @@ class CatbreedsListProvider extends ChangeNotifier {
   ValueStream<List<CatbreedModel>> get catbreedListStream =>
       _catbreedListSubject.stream;
 
+  bool noMoreResults = false;
+
   Future<void> getCatbreeds() async {
     var list = await _catbreedRepository.getCatbreeds();
     if (list != null) catbreedList = list;
@@ -24,7 +26,11 @@ class CatbreedsListProvider extends ChangeNotifier {
 
   Future<void> getNextCatbreeds(int page) async {
     var list = await _catbreedRepository.getNextCatbreeds(page);
-    if (list != null) catbreedList.addAll(list);
+    if (list != null && list.isNotEmpty) {
+      catbreedList.addAll(list);
+    } else {
+      noMoreResults = true;
+    }
     _catbreedListSubject.value = catbreedList;
     notifyListeners();
   }

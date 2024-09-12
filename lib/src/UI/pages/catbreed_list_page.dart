@@ -24,6 +24,7 @@ class _CatbreedListPageState extends State<CatbreedListPage> {
 
     _scrollController.addListener(() {
       if (isActiveQuery == false &&
+          context.read<CatbreedsListProvider>().noMoreResults == false &&
           _scrollController.position.pixels >=
               _scrollController.position.maxScrollExtent - 500) {
         callNextPage(_scrollController.position.pixels);
@@ -68,6 +69,7 @@ class _CatbreedListPageState extends State<CatbreedListPage> {
               if (_debounce?.isActive ?? false) _debounce?.cancel();
               _debounce = Timer(const Duration(milliseconds: 500), () {
                 context.read<CatbreedsListProvider>().searchCatbreeds(value);
+                currentPage = 0;
               });
               //}
             },
@@ -76,6 +78,7 @@ class _CatbreedListPageState extends State<CatbreedListPage> {
                 onPressed: () {
                   _textController.clear();
                   context.read<CatbreedsListProvider>().getCatbreeds();
+                  currentPage = 0;
                 },
                 icon: const Icon(Icons.clear),
               )

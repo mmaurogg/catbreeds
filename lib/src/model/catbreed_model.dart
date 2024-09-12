@@ -117,8 +117,11 @@ class CatbreedModel {
     wikipediaUrl = json['wikipedia_url'];
     hypoallergenic = json['hypoallergenic'];
     referenceImageId = json['reference_image_id'];
-    image =
-        json['image'] != null ? new ImageModel.fromJson(json['image']) : null;
+    image = json['image'] != null
+        ? new ImageModel.fromJson(json['image'])
+        : new ImageModel(
+            url:
+                'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png');
   }
 
   Map<String, dynamic> toJson() {
