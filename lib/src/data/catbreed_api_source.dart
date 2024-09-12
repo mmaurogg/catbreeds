@@ -24,7 +24,7 @@ class CatbreedApiSourceImpl extends ApiSource implements CatbreedApiSource {
       'live_99Qe4Ppj34NdplyLW67xCV7Ds0oSLKGgcWWYnSzMJY9C0QOu0HUR4azYxWkyW2nr';
 
   @override
-  Future<List<CatbreedModel>?> getCatBreeds() async {
+  Future<List<CatbreedModel>?> getCatbreeds() async {
     const String endPoint = '/v1/breeds';
     final url = Uri.https(_baseUrl, endPoint, {"limit": "10", "page": "0"});
 
@@ -64,8 +64,7 @@ class CatbreedApiSourceImpl extends ApiSource implements CatbreedApiSource {
     } */
   }
 
-  @override
-  Future<List<CatbreedModel>?> getNextCatBreeds(int page) async {
+  Future<List<CatbreedModel>?> getNextCatbreeds(int page) async {
     const String _endPoint = '/v1/breeds';
     final url = Uri.https(
         _baseUrl, _endPoint, {"limit": "10", "page": page.toString()});
@@ -86,8 +85,7 @@ class CatbreedApiSourceImpl extends ApiSource implements CatbreedApiSource {
     }
   }
 
-  @override
-  Future<List<CatbreedModel>?> searchCatBreeds(String text) async {
+  Future<List<CatbreedModel>?> searchCatbreeds(String text) async {
     const String _endPoint = '/v1/breeds/search';
     final url = Uri.https(_baseUrl, _endPoint, {"q": text});
     var response = await http.get(url, headers: {'x-api-key': _apiKey});
