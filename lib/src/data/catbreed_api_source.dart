@@ -10,7 +10,7 @@ class CatbreedApiSource {
 
   CatbreedApiSource();
 
-  Future<List<CatbreedModel>?> getCatBreeds() async {
+  Future<List<CatbreedModel>?> getCatbreeds() async {
     const String _endPoint = '/v1/breeds';
     final url = Uri.https(_baseUrl, _endPoint, {"limit": "10", "page": "0"});
     var response = await http.get(url, headers: {'x-api-key': _apiKey});
@@ -30,7 +30,7 @@ class CatbreedApiSource {
     }
   }
 
-  Future<List<CatbreedModel>?> getNextCatBreeds(int page) async {
+  Future<List<CatbreedModel>?> getNextCatbreeds(int page) async {
     const String _endPoint = '/v1/breeds';
     final url = Uri.https(
         _baseUrl, _endPoint, {"limit": "10", "page": page.toString()});
@@ -51,7 +51,7 @@ class CatbreedApiSource {
     }
   }
 
-  Future<List<CatbreedModel>?> searchCatBreeds(String text) async {
+  Future<List<CatbreedModel>?> searchCatbreeds(String text) async {
     const String _endPoint = '/v1/breeds/search';
     final url = Uri.https(_baseUrl, _endPoint, {"q": text});
     var response = await http.get(url, headers: {'x-api-key': _apiKey});
