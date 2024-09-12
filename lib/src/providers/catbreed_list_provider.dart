@@ -2,14 +2,13 @@ import 'package:catbreeds/src/data/catbreed_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:catbreeds/src/model/catbreed_model.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:rxdart/subjects.dart';
 
 class CatbreedsListProvider extends ChangeNotifier {
-  final _catbreedRepository = CatbreedRepositoryImpl();
+  final CatbreedRepositoryImpl _catbreedRepository;
+
+  CatbreedsListProvider(this._catbreedRepository);
 
   List<CatbreedModel> catbreedList = [];
-
-  CatbreedsListProvider();
 
   final _catbreedListSubject = BehaviorSubject<List<CatbreedModel>>();
 
@@ -24,7 +23,7 @@ class CatbreedsListProvider extends ChangeNotifier {
   }
 
   Future<void> getNextCatbreeds(int page) async {
-    var list = await _catbreedRepository.getCatbreeds();
+    var list = await _catbreedRepository.getNextCatbreeds(page);
     if (list != null) catbreedList.addAll(list);
     _catbreedListSubject.value = catbreedList;
     notifyListeners();
@@ -35,5 +34,11 @@ class CatbreedsListProvider extends ChangeNotifier {
     if (list != null) catbreedList = list;
     _catbreedListSubject.value = catbreedList;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _catbreedListSubject.close();
   }
 }
