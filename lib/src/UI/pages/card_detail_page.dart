@@ -28,6 +28,7 @@ class CardDetailPage extends StatelessWidget {
               const SizedBox(height: 10),
               Expanded(
                 child: Scrollbar(
+                  controller: ScrollController(),
                   child: SingleChildScrollView(
                     child: Container(
                       child: Column(

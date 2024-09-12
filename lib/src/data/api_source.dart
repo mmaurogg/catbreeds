@@ -1,26 +1,30 @@
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+
+import 'package:catbreeds/src/model/catbreed_model.dart';
 
 mixin Conectivity {
   Future<bool>? isConnected();
 }
 
 class ApiSource {
-  final http.Client client;
-  final Conectivity? conectivity;
   final String token;
 
   ApiSource({
-    required this.client,
-    required this.conectivity,
     required this.token,
   });
 
-  Future<T?> getApi<T>(Uri url) async {
+  final http.Client client = http.Client();
+  //final Conectivity? conectivity;
+
+  Future<List<T?>?> getApi<T>(Uri url) async {
     try {
       final response = await client.get(url, headers: {'x-api-key': token});
 
       if (response.statusCode == 200) {
-        return response as T;
+        final jsonResponse = convert.jsonDecode(response.body);
+        print(jsonResponse);
+        return jsonResponse;
       } else {
         print('Request failed with status: ${response.statusCode}.');
       }
