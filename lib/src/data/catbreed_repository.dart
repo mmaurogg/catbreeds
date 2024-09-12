@@ -8,7 +8,7 @@ abstract class CatbreedRepository {
 }
 
 class CatbreedRepositoryImpl implements CatbreedRepository {
-  final _catbreedApiSource = CatbreedApiSource();
+  final _catbreedApiSource = CatbreedApiSourceImpl();
 
   @override
   Future<List<CatbreedModel>?> getCatbreeds() {
