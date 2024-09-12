@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 abstract class CatbreedApiSource {
-  Future<List<CatbreedModel>?> getCatBreeds();
-  Future<List<CatbreedModel>?> getNextCatBreeds(int page);
-  Future<List<CatbreedModel>?> searchCatBreeds(String text);
+  Future<List<CatbreedModel>?> getCatbreeds();
+  Future<List<CatbreedModel>?> getNextCatbreeds(int page);
+  Future<List<CatbreedModel>?> searchCatbreeds(String text);
 }
 
 class CatbreedApiSourceImpl extends ApiSource implements CatbreedApiSource {
