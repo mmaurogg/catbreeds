@@ -1,4 +1,4 @@
-import 'package:catbreeds/src/UI/pages/home_page.dart';
+import 'package:catbreeds/src/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -12,7 +12,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-
     _showGreeting();
   }
 
@@ -28,7 +27,7 @@ class _SplashPageState extends State<SplashPage> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                     textAlign: TextAlign.center)),
             Center(
-                child: Container(
+                child: SizedBox(
               height: 150,
               child: Image.asset('assets/cat.png'),
             )),
@@ -42,7 +41,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 1), () {
       showDialog<void>(
         context: context,
-        barrierDismissible: false, // user must tap button to close the dialog
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Bienvenido',
@@ -60,13 +59,10 @@ class _SplashPageState extends State<SplashPage> {
               TextButton(
                 child: const Text('Aceptar'),
                 onPressed: () {
-                  //Navigator.of(context).pop();
                   Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => const HomePage()),
                     (route) => false,
                   );
-                  /* pushReplacement(
-                      MaterialPageRoute(builder: (context) => HomePage())); */
                 },
               ),
             ],

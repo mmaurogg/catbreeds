@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:catbreeds/src/UI/widgets/custom_card.dart';
+import 'package:catbreeds/src/ui/widgets/custom_card.dart';
 import 'package:catbreeds/src/model/catbreed_model.dart';
 import 'package:catbreeds/src/providers/catbreed_list_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 class CatbreedListPage extends StatefulWidget {
@@ -20,7 +21,11 @@ class _CatbreedListPageState extends State<CatbreedListPage> {
   void initState() {
     super.initState();
     //catbreedProvider = Provider.of<CatbreedsListProvider>(context);
-    context.read<CatbreedsListProvider>().getCatbreeds();
+    context.read<CatbreedsListProvider>().getCatbreeds().then(
+          (value) => Future.delayed(const Duration(seconds: 1), () {
+            FlutterNativeSplash.remove();
+          }),
+        );
 
     _scrollController.addListener(() {
       if (isActiveQuery == false &&
@@ -37,8 +42,8 @@ class _CatbreedListPageState extends State<CatbreedListPage> {
   bool isActiveQuery = false;
   int currentPage = 0;
 
-  TextEditingController _textController = TextEditingController();
-  ScrollController _scrollController = ScrollController();
+  final TextEditingController _textController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   void callNextPage(double toPosition) async {
     setState(() {

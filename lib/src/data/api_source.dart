@@ -3,10 +3,6 @@ import 'dart:convert' as convert;
 
 import 'package:catbreeds/src/model/catbreed_model.dart';
 
-mixin Conectivity {
-  Future<bool>? isConnected();
-}
-
 class ApiSource {
   final String token;
 

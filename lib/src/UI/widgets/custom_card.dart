@@ -1,4 +1,4 @@
-import 'package:catbreeds/src/UI/pages/card_detail_page.dart';
+import 'package:catbreeds/src/ui/pages/card_detail_page.dart';
 import 'package:catbreeds/src/model/catbreed_model.dart';
 import 'package:flutter/material.dart';
 
